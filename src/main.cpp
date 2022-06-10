@@ -1,6 +1,6 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
-    SPDX-FileCopyrightText: %{CURRENT_YEAR} %{AUTHOR} <%{EMAIL}>
+    SPDX-FileCopyrightText: 2022 Cactric
 */
 
 #include <QApplication>
@@ -21,7 +21,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
-    QCoreApplication::setOrganizationName(QStringLiteral("KDE"));
     QCoreApplication::setApplicationName(QStringLiteral("SystemTransfer"));
 
     KAboutData aboutData(
@@ -32,12 +31,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
                          // The program version string.
                          QStringLiteral(SYSTEMTRANSFER_VERSION_STRING),
                          // Short description of what the app does.
-                         i18n("Application Description"),
+                         i18n("Transfer your data to a new computer"),
                          // The license this code is released under.
                          KAboutLicense::GPL,
                          // Copyright Statement.
-                         i18n("(c) %{CURRENT_YEAR}"));
-    aboutData.addAuthor(i18nc("@info:credit", "AUTHOR"), i18nc("@info:credit", "Author Role"), QStringLiteral("%{EMAIL}"), QStringLiteral("https://yourwebsite.com"));
+                         i18n("(c) 2022 Cactric"));
+    aboutData.addAuthor(i18nc("@info:credit", "Cactric"), i18nc("@info:credit", "Author"), NULL /*QStringLiteral("%{EMAIL}")*/, NULL /*QStringLiteral("https://github.com/cactric")*/);
     KAboutData::setApplicationData(aboutData);
 
     QQmlApplicationEngine engine;

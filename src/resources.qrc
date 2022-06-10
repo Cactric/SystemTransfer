@@ -1,10 +1,12 @@
 <!--
     SPDX-License-Identifier: CC0-1.0
-    SPDX-FileCopyrightText: %{CURRENT_YEAR} %{AUTHOR} <%{EMAIL}>
+    SPDX-FileCopyrightText: 2022 Cactric
 -->
 <RCC>
     <qresource prefix="/">
         <file alias="main.qml">contents/ui/main.qml</file>
         <file alias="About.qml">contents/ui/About.qml</file>
+        <file alias="Send.qml">contents/ui/Send.qml</file>
+        <file alias="Receive.qml">contents/ui/Receive.qml</file>
     </qresource>
 </RCC>
