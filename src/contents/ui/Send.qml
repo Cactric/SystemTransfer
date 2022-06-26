@@ -10,9 +10,27 @@ Kirigami.Page {
     id: send
     title: i18n("Send")
 
-    Kirigami.Heading {
-        text: i18n("Send")
-        Layout.alignment: Qt.AlignCenter
+    ColumnLayout {
+        width: page.width
+        Kirigami.Heading {
+            text: i18n("Send")
+            Layout.alignment: Qt.AlignCenter
+        }
+        
+        Controls.Label {
+            text: i18n("Select a computer to send to or search by IP address")
+            Layout.alignment: Qt.AlignHCenter
+        }
+        
+        RowLayout {
+            Layout.alignment: Qt.AlignHCenter
+            Controls.TextField {
+                placeholderText: i18n("IP address")
+            }
+            Controls.Button {
+                text: i18n("Send")
+            }
+        }
+        
     }
-
 }

@@ -10,9 +10,26 @@ Kirigami.Page {
     id: receive
     title: i18n("Receive")
 
-    Kirigami.Heading {
-        text: i18n("Receive")
-        Layout.alignment: Qt.AlignCenter
+    ColumnLayout {
+        width: page.width
+
+        Kirigami.Heading {
+            text: i18n("Receive")
+            Layout.alignment: Qt.AlignCenter
+        }
+        
+        Controls.Label {
+            text: i18n("This computer should be visible to others using this app on the same network")
+            Layout.alignment: Qt.AlignHCenter
+        }
+        Controls.Label {
+            text: i18n("Alternatively, you can search by IP address on the other computer")
+            Layout.alignment: Qt.AlignHCenter
+        }
+        Controls.Button {
+            text: i18n("Show IP address")
+            Layout.alignment: Qt.AlignHCenter
+        }
     }
 
 }
