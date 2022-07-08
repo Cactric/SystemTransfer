@@ -29,7 +29,33 @@ Kirigami.Page {
         Controls.Button {
             text: i18n("Show IP address")
             Layout.alignment: Qt.AlignHCenter
+            onClicked: {
+                const ipaddrdialog = unhideDialog.createObject(root, {})
+                ipaddrdialog.open()
+            }
         }
     }
+    
+    Component {
+        // This component was stolen from kcm_about-distro (originally used for a serial number)
+        id: unhideDialog
+        Kirigami.PromptDialog {
+            // NB: should we ever have other entries that need this dialog then this needs refactoring on the Entry side.
+            //  Do NOT simply add if else logic here!
+            title: i18nc("@title", "IPv4 addresse")
+            subtitle: modelData.localizedValue()
+            flatFooterButtons: true
+            standardButtons: Kirigami.Dialog.NoButton
+            customFooterActions: [
+                Kirigami.Action {
+                    text: i18nc("@action:button", "Copy to Clipboard")
+                    icon.name: "edit-copy"
+                    onTriggered: kcm.storeInClipboard(subtitle)
+                    shortcut: StandardKey.Copy
+                }
+            ]
+        }
+    }
+
 
 }
