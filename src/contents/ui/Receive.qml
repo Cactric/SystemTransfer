@@ -40,10 +40,8 @@ Kirigami.Page {
         // This component was stolen from kcm_about-distro (originally used for a serial number)
         id: unhideDialog
         Kirigami.PromptDialog {
-            // NB: should we ever have other entries that need this dialog then this needs refactoring on the Entry side.
-            //  Do NOT simply add if else logic here!
-            title: i18nc("@title", "IPv4 addresse")
-            subtitle: modelData.localizedValue()
+            title: i18nc("@title", "IPv4 address of this computer")
+            subtitle: "test your fire alarms :)"
             flatFooterButtons: true
             standardButtons: Kirigami.Dialog.NoButton
             customFooterActions: [
