@@ -5,8 +5,12 @@ add_executable(systemtransfer
     main.cpp
     about.cpp
     app.cpp
-    resources.qrc)
+    resources.qrc
+    service.cpp
+)
 
+find_package(KF5DNSSD NO_MODULE)
+    
 target_link_libraries(systemtransfer
     Qt5::Core
     Qt5::Gui
@@ -17,7 +21,9 @@ target_link_libraries(systemtransfer
     KF5::I18n
     KF5::CoreAddons
     KF5::ConfigCore
-    KF5::ConfigGui)
+    KF5::ConfigGui
+    KF5::DNSSD
+    )
 
 kconfig_add_kcfg_files(systemtransfer GENERATE_MOC systemtransferconfig.kcfgc)
 install(TARGETS systemtransfer ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

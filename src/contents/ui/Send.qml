@@ -5,11 +5,12 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15 as Controls
 import QtQuick.Layouts 1.15
 import org.kde.kirigami 2.19 as Kirigami
+import org.kde.SystemTransfer 1.0
 
 Kirigami.Page {
     id: send
     title: i18n("Send")
-
+    
     ColumnLayout {
         width: page.width
         Kirigami.Heading {
@@ -20,6 +21,10 @@ Kirigami.Page {
         Controls.Label {
             text: i18n("Select a computer to send to or search by IP address")
             Layout.alignment: Qt.AlignHCenter
+        }
+        
+        Controls.Label {
+            text: Service.introductionText
         }
         
         RowLayout {

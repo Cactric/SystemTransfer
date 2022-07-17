@@ -7,6 +7,7 @@
 #include <QQmlApplicationEngine>
 #include <QUrl>
 #include <QtQml>
+#include <QObject>
 
 #include "about.h"
 #include "app.h"
@@ -16,6 +17,7 @@
 #include <KLocalizedString>
 
 #include "systemtransferconfig.h"
+#include "service.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -50,6 +52,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     App application;
     qmlRegisterSingletonInstance("org.kde.SystemTransfer", 1, 0, "App", &application);
+    
+    Service service;
+    qmlRegisterSingletonInstance("org.kde.SystemTransfer", 1, 0, "Service", &service);
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
