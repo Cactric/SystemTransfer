@@ -21,3 +21,12 @@ void Service::setIntroductionText(const QString &introductionText)
     m_introductionText = introductionText;
     Q_EMIT introductionTextChanged();
 }
+
+QString Service::serviceInformationText() const {
+    return m_serviceInformationText;
+}
+
+void Service::setServiceInformationText(const QString &serviceInformationText) {
+    m_serviceInformationText = serviceInformationText;
+    Q_EMIT serviceInformationTextChanged();
+}

@@ -9,13 +9,20 @@
 class Service : public QObject {
     Q_OBJECT
     Q_PROPERTY(QString introductionText READ introductionText WRITE setIntroductionText NOTIFY introductionTextChanged)
+    Q_PROPERTY(QString serviceInformationText READ serviceInformationText WRITE setServiceInformationText NOTIFY serviceInformationTextChanged)
+
     
 public:
     explicit Service(QObject *parent = nullptr);
     QString introductionText() const;
     void setIntroductionText(const QString &introductionText);
     Q_SIGNAL void introductionTextChanged();
+    
+    QString serviceInformationText() const;
+    void setServiceInformationText(const QString &serviceInformationText);
+    Q_SIGNAL void serviceInformationTextChanged();
 
 private:
     QString m_introductionText = "Hello world!";
+    QString m_serviceInformationText = "Not announcing yet...";
 };

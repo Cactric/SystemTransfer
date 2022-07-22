@@ -23,10 +23,6 @@ Kirigami.Page {
             Layout.alignment: Qt.AlignHCenter
         }
         
-        Controls.Label {
-            text: Service.introductionText
-        }
-        
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
             Controls.TextField {
@@ -35,6 +31,10 @@ Kirigami.Page {
             Controls.Button {
                 text: i18n("Send")
             }
+        }
+        
+        Controls.Label {
+            text: Service.serviceInformationText
         }
         
     }
