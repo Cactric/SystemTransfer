@@ -36,6 +36,6 @@ Kirigami.Page {
         Controls.Label {
             text: Service.serviceInformationText
         }
-        
+
     }
 }

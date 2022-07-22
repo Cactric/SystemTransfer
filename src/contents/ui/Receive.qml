@@ -5,6 +5,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15 as Controls
 import QtQuick.Layouts 1.15
 import org.kde.kirigami 2.19 as Kirigami
+import org.kde.SystemTransfer 1.0
 
 Kirigami.Page {
     id: receive
@@ -41,7 +42,7 @@ Kirigami.Page {
         id: unhideDialog
         Kirigami.PromptDialog {
             title: i18nc("@title", "IPv4 address of this computer")
-            subtitle: "test your fire alarms :)"
+            subtitle: Service.myIPaddressText
             flatFooterButtons: true
             standardButtons: Kirigami.Dialog.NoButton
             customFooterActions: [
