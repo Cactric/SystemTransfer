@@ -35,6 +35,16 @@ Kirigami.Page {
                 ipaddrdialog.open()
             }
         }
+        
+        Kirigami.CardsListView {
+            id: foundSenders
+            model: foundSenderModel
+            delegate: foundSenderDelegate
+        }
+        ListModel {
+            id: foundSenderModel
+            ListElement {name: "System Transfer on example"; hostname: "example"; port: 33599}
+        }
     }
     
     Component {
@@ -55,6 +65,42 @@ Kirigami.Page {
             ]
         }
     }
-
+    
+    Component {
+        id: foundSenderDelegate
+        Kirigami.AbstractCard {
+            contentItem: Item {
+                implicitWidth: delegateLayout.implicitWidth
+                implicitHeight: delegateLayout.implicitHeight
+                GridLayout {
+                    id: delegateLayout
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        top: parent.top
+                    }
+                    rowSpacing: Kirigami.Units.largeSpacing
+                    columnSpacing: Kirigami.Units.largeSpacing
+                    columns: root.wideScreen ? 4 : 2
+                    
+                    Kirigami.Heading {
+                        text: name
+                        Layout.fillWidth: true
+                    }
+                    
+                    Controls.Label {
+                        text: i18n("Hostname: %1, Port %2", hostname, port)
+                        Layout.fillWidth: true
+                    }
+                    Controls.Button {
+                        text: i18n("Receive")
+                        Layout.alignment: Qt.AlignRight
+                        icon.name: "cloud-download"
+                        //onClicked
+                    }
+                }
+            }
+        }
+    }
 
 }

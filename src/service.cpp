@@ -8,6 +8,7 @@
 
 #include "service.h"
 #include <kdnssd/publicservice.h>
+#include <kdnssd/servicebrowser.h>
 #include <QNetworkInterface>
 #include <QHostInfo>
 #include <KLocalizedString>
@@ -70,5 +71,17 @@ QString Service::myIPaddressText() const {
         }
     }
     return QStringLiteral("Unknown");
+}
 
+void Service::init_service_browser() {
+    service_browser = new KDNSSD::ServiceBrowser(
+        QStringLiteral("_systemtransfer._tcp"),
+        true // auto resolve. I guess I want this?
+    );
+    connect(service_browser, SIGNAL(finished()), this, SLOT(servicesChanged()));
+    service_browser->startBrowse();
+}
+
+void Service::servicesChanged() {
+    // something something with kirigami
 }

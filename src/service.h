@@ -5,6 +5,7 @@
 
 #pragma once
 #include <QObject>
+#include <kdnssd/servicebrowser.h>
 
 class Service : public QObject {
     Q_OBJECT
@@ -22,6 +23,8 @@ public:
     void setServiceInformationText(const QString &serviceInformationText);
     Q_SIGNAL void serviceInformationTextChanged();
     void serviceAnnounce();
+    
+    void init_service_browser();
 
     QString myIPaddressText() const;
 
@@ -29,4 +32,9 @@ private:
     QString m_introductionText = "Hello world!";
     QString m_serviceInformationText = "Not announcing yet...";
     bool m_announcing = false;
+    KDNSSD::ServiceBrowser *service_browser;
+    QHash<QString, QString> m_protocols;
+
+private Q_SLOTS:
+    void servicesChanged();
 };
