@@ -18,14 +18,15 @@ public:
     void setIntroductionText(const QString &introductionText);
     Q_SIGNAL void introductionTextChanged();
     
-    QString serviceInformationText() const;
+    QString serviceInformationText();
     void setServiceInformationText(const QString &serviceInformationText);
     Q_SIGNAL void serviceInformationTextChanged();
-    void serviceAnnounce() const;
+    void serviceAnnounce();
 
     QString myIPaddressText() const;
 
 private:
     QString m_introductionText = "Hello world!";
     QString m_serviceInformationText = "Not announcing yet...";
+    bool m_announcing = false;
 };

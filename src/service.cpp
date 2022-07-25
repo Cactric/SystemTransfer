@@ -10,7 +10,7 @@
 #include <kdnssd/publicservice.h>
 #include <QNetworkInterface>
 #include <QHostInfo>
-#include <iostream>
+#include <KLocalizedString>
 
 Service::Service(QObject* parent) : QObject(parent) {
 }
@@ -26,8 +26,10 @@ void Service::setIntroductionText(const QString &introductionText)
     Q_EMIT introductionTextChanged();
 }
 
-QString Service::serviceInformationText() const {
-    serviceAnnounce();
+QString Service::serviceInformationText(){
+    if(m_announcing == false) {
+        serviceAnnounce();
+    }
     return m_serviceInformationText;
 }
 
@@ -36,15 +38,25 @@ void Service::setServiceInformationText(const QString &serviceInformationText) {
     Q_EMIT serviceInformationTextChanged();
 }
 
-void Service::serviceAnnounce() const {
-    KDNSSD::PublicService();
+void Service::serviceAnnounce() {
+    KDNSSD::PublicService *public_service = new KDNSSD::PublicService(
+        i18n("System transfer on %1", QHostInfo::localHostName()),
+        QStringLiteral("_systemtransfer._tcp"),
+        33599 // port number. Random hardcoded number for now
+    );
+    
+    public_service->publishAsync();
+
+    m_announcing = true;
+    m_serviceInformationText = "Announcing to other computers on the local network...";
+    Q_EMIT serviceInformationTextChanged();
+
 }
 
 // This function gets the (local) IP address of the computer, e.g. 192.168.0.37
 QString Service::myIPaddressText() const {
     // Code stolen from krfb and changed a little bit (I don't need a port or hostname)
     // Figure out the address
-    std::cout << "Reached ip addr getter";
     const QList<QNetworkInterface> interfaceList = QNetworkInterface::allInterfaces();
     for (const QNetworkInterface& interface : interfaceList) {
         // Skip loopback interfaces that'll just contain localhost, etc.
