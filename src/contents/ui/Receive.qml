@@ -59,7 +59,7 @@ Kirigami.Page {
                 Kirigami.Action {
                     text: i18nc("@action:button", "Copy to Clipboard")
                     icon.name: "edit-copy"
-                    onTriggered: kcm.storeInClipboard(subtitle)
+                    onTriggered: Service.storeInClipboard(subtitle)
                     shortcut: StandardKey.Copy
                 }
             ]

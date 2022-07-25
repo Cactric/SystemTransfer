@@ -11,10 +11,13 @@
 #include <kdnssd/servicebrowser.h>
 #include <QNetworkInterface>
 #include <QHostInfo>
+#include <QGuiApplication>
+#include <QClipboard>
 #include <KLocalizedString>
 
 Service::Service(QObject* parent) : QObject(parent) {
 }
+
 
 QString Service::introductionText() const
 {
@@ -84,4 +87,8 @@ void Service::init_service_browser() {
 
 void Service::servicesChanged() {
     // something something with kirigami
+}
+
+Q_SCRIPTABLE void Service::storeInClipboard(const QString &text) {
+    QGuiApplication::clipboard()->setText(text.trimmed());
 }

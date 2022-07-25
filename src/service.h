@@ -27,6 +27,7 @@ public:
     void init_service_browser();
 
     QString myIPaddressText() const;
+    Q_SCRIPTABLE static void storeInClipboard(const QString &text);
 
 private:
     QString m_introductionText = "Hello world!";
