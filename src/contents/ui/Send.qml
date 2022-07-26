@@ -7,42 +7,52 @@ import QtQuick.Layouts 1.15
 import org.kde.kirigami 2.19 as Kirigami
 import org.kde.SystemTransfer 1.0
 
-Kirigami.Page {
+Kirigami.ScrollablePage {
     id: send
     title: i18n("Send")
     
-    ColumnLayout {
-        width: page.width
-        Kirigami.Heading {
-            text: i18n("Send")
-            Layout.alignment: Qt.AlignCenter
+    actions.main: Kirigami.Action {
+        id: manualFind
+        icon.name: "search"
+        text: i18n("Find manually")
+        onTriggered: manualFindSheet.open()
+    }
+    
+    Kirigami.OverlaySheet {
+        id: manualFindSheet
+        
+        header: Kirigami.Heading {
+            text: "Search by IP address"
         }
         
-        Controls.Label {
-            text: i18n("Select a computer to send to or search by IP address")
-            Layout.alignment: Qt.AlignHCenter
-        }
-        
-        RowLayout {
-            Layout.alignment: Qt.AlignHCenter
+        ColumnLayout {
             Controls.TextField {
-                placeholderText: i18n("IP address")
+                placeholderText: "IP address:"
             }
+            
             Controls.Button {
                 text: i18n("Send")
             }
-        }        
-        Kirigami.CardsListView {
-            id: foundSenders
-            model: foundSenderModel
-            delegate: foundSenderDelegate
-        }
-        ListModel {
-            id: foundSenderModel
-            ListElement {name: "System Transfer on example"; hostname: "example"; port: 33599}
         }
     }
-
+    
+    Kirigami.CardsListView {
+        id: foundSenders
+        Kirigami.PlaceholderMessage {
+            visible: foundSenders.count === 0
+            anchors.centerIn: parent
+            text: i18n("No receiving computers found on this network (yet)")
+            helpfulAction: manualFind
+        }
+        model: foundSenderModel
+        delegate: foundSenderDelegate
+        
+    }
+    ListModel {
+        id: foundSenderModel
+        ListElement {name: "System Transfer on example"; hostname: "example"; port: 33599}
+        ListElement {name: "System Transfer on example 2"; hostname: "example2"; port: 33599}
+    }
     Component {
         id: foundSenderDelegate
         Kirigami.AbstractCard {
@@ -60,15 +70,18 @@ Kirigami.Page {
                     columnSpacing: Kirigami.Units.largeSpacing
                     columns: root.wideScreen ? 4 : 2
                     
-                    Kirigami.Heading {
-                        text: name
-                        Layout.fillWidth: true
+                    ColumnLayout {
+                        Kirigami.Heading {
+                            text: name
+                            Layout.fillWidth: true
+                        }
+                        
+                        Controls.Label {
+                            text: i18n("Hostname: %1, Port %2", hostname, port)
+                            Layout.fillWidth: true
+                        }
                     }
                     
-                    Controls.Label {
-                        text: i18n("Hostname: %1, Port %2", hostname, port)
-                        Layout.fillWidth: true
-                    }
                     Controls.Button {
                         text: i18n("Receive")
                         Layout.alignment: Qt.AlignRight
