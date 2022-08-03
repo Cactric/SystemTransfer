@@ -46,17 +46,9 @@ Kirigami.ScrollablePage {
             helpfulAction: manualFind
         }
         model: Service.FoundReceiversList
-        delegate: foundReceiverDelegate
-        
-    }
-    //ListModel {
-        //id: foundReceiverModel
-        //ListElement {name: "System Transfer on example"; hostname: "example"; port: 33599}
-        //ListElement {name: "System Transfer on example 2"; hostname: "example2"; port: 33599}
-    //}
-    Component {
-        id: foundReceiverDelegate
-        Kirigami.AbstractCard {
+        delegate: Kirigami.AbstractCard {
+            id: foundReceiverDelegate
+            
             contentItem: Item {
                 implicitWidth: delegateLayout.implicitWidth
                 implicitHeight: delegateLayout.implicitHeight
@@ -73,24 +65,30 @@ Kirigami.ScrollablePage {
                     
                     ColumnLayout {
                         Kirigami.Heading {
-                            text: name
+                            text: modelData.servicename
                             Layout.fillWidth: true
                         }
                         
                         Controls.Label {
-                            text: i18n("Hostname: %1, Port %2", hostname, port)
+                            text: i18n("Hostname: %1, Port %2", modelData.hostname, modelData.port)
                             Layout.fillWidth: true
                         }
                     }
                     
                     Controls.Button {
-                        text: i18n("Receive")
+                        text: i18n("Send")
                         Layout.alignment: Qt.AlignRight
-                        icon.name: "cloud-download"
+                        icon.name: "cloud-upload"
                         //onClicked
                     }
                 }
             }
         }
+        
     }
+    //ListModel {
+        //id: foundReceiverModel
+        //ListElement {servicename: "System Transfer on example"; hostname: "example"; port: 33599}
+        //ListElement {servicename: "System Transfer on example 2"; hostname: "example2"; port: 33599}
+    //}
 }

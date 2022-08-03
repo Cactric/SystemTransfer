@@ -29,7 +29,7 @@ public:
     Q_SIGNAL void portChanged();
 
 private:
-    int m_port = 0;
-    QString m_hostname = "";
-    QString m_servicename = "";
+    int m_port = 255;
+    QString m_hostname = "(unset)";
+    QString m_servicename = "(unset)";
 };

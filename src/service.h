@@ -11,8 +11,8 @@ class Service : public QObject {
     Q_OBJECT
     Q_PROPERTY(QString introductionText READ introductionText WRITE setIntroductionText NOTIFY introductionTextChanged)
     Q_PROPERTY(QString serviceInformationText READ serviceInformationText WRITE setServiceInformationText NOTIFY serviceInformationTextChanged)
-    Q_PROPERTY(QString myIPaddressText READ myIPaddressText NOTIFY myIPaddressTextChanged);
-    Q_PROPERTY(QList<QObject *> FoundReceiversList READ FoundReceiversList WRITE setFoundReceiversList NOTIFY FoundReceiversListChanged);
+    Q_PROPERTY(QString myIPaddressText READ myIPaddressText NOTIFY myIPaddressTextChanged)
+    Q_PROPERTY(QList<QObject *> FoundReceiversList READ FoundReceiversList WRITE setFoundReceiversList NOTIFY FoundReceiversListChanged)
 
 public:
     explicit Service(QObject *parent = nullptr);
@@ -25,7 +25,7 @@ public:
     Q_SIGNAL void serviceInformationTextChanged();
     void serviceAnnounce();
     
-    void init_service_browser();
+    Q_SCRIPTABLE void init_service_browser();
 
     QString myIPaddressText() const;
     Q_SIGNAL void myIPaddressTextChanged(); // Not used
@@ -43,6 +43,7 @@ private:
     KDNSSD::ServiceBrowser *service_browser;
     QHash<QString, QString> m_protocols;
     QList<QObject *> m_foundReceiversList;
+    bool m_updatingFoundReceiversList = false;
 
 private Q_SLOTS:
     void servicesChanged();

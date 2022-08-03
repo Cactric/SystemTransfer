@@ -79,18 +79,22 @@ QString Service::myIPaddressText() const {
     return QStringLiteral("Unknown");
 }
 
-void Service::init_service_browser() {
-    std::cout << "Making service browser... \n";
+Q_SCRIPTABLE void Service::init_service_browser() {
     service_browser = new KDNSSD::ServiceBrowser(
         QStringLiteral("_systemtransfer._tcp"),
         true // auto resolve. I guess I want this?
     );
-    std::cout << "Service browser made.\n";
     connect(service_browser, SIGNAL(finished()), this, SLOT(servicesChanged()));
     service_browser->startBrowse();
 }
 
 void Service::servicesChanged() {
+    if(m_updatingFoundReceiversList) {
+        std::cout << "Updating the receivers list whilst it's being updated!!!!\n";
+        return;
+    }
+    
+    m_updatingFoundReceiversList = true;
     const QList<KDNSSD::RemoteService::Ptr> services = service_browser->services();
     
     // Clear the list of found computers
@@ -99,9 +103,14 @@ void Service::servicesChanged() {
     // Add the computers found
     for (const KDNSSD::RemoteService::Ptr& service : services) {
         m_foundReceiversList.append(new FoundReceiverObject(service->serviceName(), service->hostName(), service->port()));
+        //std::cout << "Adding service:\nService name: " << service->serviceName() << "\nHostname: " << service->hostName() << "\nPort: " << service->port() << "\n";
+        std::cout << "Adding service:\nPort: " << service->port() << "\n";
     }
     
+    m_updatingFoundReceiversList = false;
+    
     std::cout << "Emitting FoundReceiversListChanged.\n";
+    std::cout << "New length: " << m_foundReceiversList.count() << "\n";
     Q_EMIT FoundReceiversListChanged();
 }
 
