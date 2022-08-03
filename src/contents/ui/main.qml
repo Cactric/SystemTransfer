@@ -78,7 +78,10 @@ Kirigami.ApplicationWindow {
                     Layout.alignment: Qt.AlignHCenter
                     text: i18n("Send")
                     icon.name: "cloud-upload"
-                    onClicked: pageStack.layers.push('Send.qml')
+                    onClicked: {
+                        Service.init_service_browser();
+                        pageStack.layers.push('Send.qml')
+                    }
                 }
                 Controls.Button {
                     Layout.alignment: Qt.AlignHCenter
