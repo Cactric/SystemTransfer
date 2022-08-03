@@ -45,20 +45,15 @@ Kirigami.ScrollablePage {
             text: i18n("No receiving computers found on this network (yet)")
             helpfulAction: manualFind
         }
-        //model: QSortFilterProxyModel {
-            //id: receiversModel
-            //sourceModel: Service.foundReceiversModel
-            //sortOrder: Qt.AscendingOrder
-            //// sortRole: ConversationModel.DateRole
-        //}
-        model: Service.foundReceiversModel
+        required FoundReceiversList
+        model: FoundReceiversList
         delegate: foundReceiverDelegate
         
     }
     //ListModel {
-        //id: foundSenderModel
-        ////ListElement {name: "System Transfer on example"; hostname: "example"; port: 33599}
-        ////ListElement {name: "System Transfer on example 2"; hostname: "example2"; port: 33599}
+        //id: foundReceiverModel
+        //ListElement {name: "System Transfer on example"; hostname: "example"; port: 33599}
+        //ListElement {name: "System Transfer on example 2"; hostname: "example2"; port: 33599}
     //}
     Component {
         id: foundReceiverDelegate

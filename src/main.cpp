@@ -18,7 +18,6 @@
 
 #include "systemtransferconfig.h"
 #include "service.h"
-#include "foundReceiverModel.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -54,10 +53,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     App application;
     qmlRegisterSingletonInstance("org.kde.SystemTransfer", 1, 0, "App", &application);
     
-    Service service;
-    qmlRegisterSingletonInstance("org.kde.SystemTransfer", 1, 0, "Service", &service);
+    QList<QObject *> foundReceiversList;
+    engine.setInitialProperties({{"FoundReceiversList", QVariant::fromValue(foundReceiversList) }});
     
-    qmlRegisterType<FoundReceiverModel>("org.kde.SystemTransfer", 1, 0, "FoundReceiverModel");
+    Service service;
+    service.setFoundReceiversList(foundReceiversList);
+    qmlRegisterSingletonInstance("org.kde.SystemTransfer", 1, 0, "Service", &service);
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.load(QUrl(QStringLiteral("qrc:///main.qml")));

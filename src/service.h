@@ -30,13 +30,16 @@ public:
     Q_SIGNAL void myIPaddressTextChanged(); // Not used
     
     Q_SCRIPTABLE static void storeInClipboard(const QString &text);
-
+    
+    void setFoundReceiversList(QList<QObject *> new_foundReceiversList);
+    
 private:
     QString m_introductionText = "Hello world!";
     QString m_serviceInformationText = "Not announcing yet...";
     bool m_announcing = false;
     KDNSSD::ServiceBrowser *service_browser;
     QHash<QString, QString> m_protocols;
+    QList<QObject *> m_foundReceiversList;
 
 private Q_SLOTS:
     void servicesChanged();

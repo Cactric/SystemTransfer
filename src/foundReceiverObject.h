@@ -5,16 +5,15 @@
 
 #pragma once
 #include <QObject>
-#include <QStandardItemModel>
 
-class FoundReceiverModel : public QStandardItemModel {
+class FoundReceiverObject : public QObject {
     Q_OBJECT
     Q_PROPERTY(QString servicename READ servicename WRITE setServiceName NOTIFY servicenameChanged)
     Q_PROPERTY(QString hostname READ hostname WRITE setHostname NOTIFY hostnameChanged)
     Q_PROPERTY(int port READ port WRITE setPort NOTIFY portChanged)
     
 public:
-    FoundReceiverModel(QObject* parent = nullptr);
+    FoundReceiverObject(QObject* parent = nullptr);
     
     QString servicename() const;
     void setServiceName(const QString &servicename);
@@ -29,7 +28,7 @@ public:
     Q_SIGNAL void portChanged();
 
 private:
-    QString m_servicename = "";
-    QString m_hostname = "";
     int m_port = 0;
+    QString m_hostname = "";
+    QString m_servicename = "";
 };
