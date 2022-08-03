@@ -38,27 +38,27 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
                          KAboutLicense::GPL,
                          // Copyright Statement.
                          i18n("(c) 2022 Cactric"));
-    aboutData.addAuthor(i18nc("@info:credit", "Cactric"), i18nc("@info:credit", "Author"), NULL /*QStringLiteral("%{EMAIL}")*/, NULL /*QStringLiteral("https://github.com/cactric")*/);
+    aboutData.addAuthor(i18nc("@info:credit", "Cactric"), i18nc("@info:credit", "Author"), NULL /*QStringLiteral("%{EMAIL}")*/, QStringLiteral("https://github.com/cactric"));
     KAboutData::setApplicationData(aboutData);
 
     QQmlApplicationEngine engine;
 
     auto config = SystemTransferConfig::self();
 
-    qmlRegisterSingletonInstance("org.kde.SystemTransfer", 1, 0, "Config", config);
+    qmlRegisterSingletonInstance("com.github.cactric.SystemTransfer", 1, 0, "Config", config);
 
     AboutType about;
-    qmlRegisterSingletonInstance("org.kde.SystemTransfer", 1, 0, "AboutType", &about);
+    qmlRegisterSingletonInstance("com.github.cactric.SystemTransfer", 1, 0, "AboutType", &about);
 
     App application;
-    qmlRegisterSingletonInstance("org.kde.SystemTransfer", 1, 0, "App", &application);
+    qmlRegisterSingletonInstance("com.github.cactric.SystemTransfer", 1, 0, "App", &application);
     
     QList<QObject *> foundReceiversList;
     //engine.setInitialProperties({{"FoundReceiversList", QVariant::fromValue(foundReceiversList) }});
     
     Service service;
     service.setFoundReceiversList(foundReceiversList);
-    qmlRegisterSingletonInstance("org.kde.SystemTransfer", 1, 0, "Service", &service);
+    qmlRegisterSingletonInstance("com.github.cactric.SystemTransfer", 1, 0, "Service", &service);
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
