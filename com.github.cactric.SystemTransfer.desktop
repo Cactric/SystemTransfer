@@ -1,8 +1,8 @@
-# SPDX-License-Identifier: CC0-1.0
+# SPDX-License-Identifier: GPL-2.0-or-later
 # SPDX-FileCopyrightText: %{CURRENT_YEAR} %{AUTHOR} <%{EMAIL}>
 [Desktop Entry]
 Name=SystemTransfer
-Comment=SystemTransfer Kirigami Application
+Comment=System Transfer
 Version=1.0
 Exec=systemtransfer
 Icon=applications-development
@@ -10,4 +10,4 @@ Type=Application
 Terminal=false
 # Add an actual main category here (and possibly applicable additional ones)
 #   https://specifications.freedesktop.org/menu-spec/latest/apa.html#main-category-registry
-Categories=Qt;KDE;
+Categories=System;

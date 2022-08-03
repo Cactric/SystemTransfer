@@ -31,7 +31,7 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 CoreAddons Con
 
 add_subdirectory(src)
 
-install(PROGRAMS org.kde.systemtransfer.desktop DESTINATION ${KDE_INSTALL_APPDIR})
-install(FILES org.kde.systemtransfer.metainfo.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
+install(PROGRAMS com.github.cactric.SystemTransfer.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+install(FILES com.github.cactric.SystemTransfer.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

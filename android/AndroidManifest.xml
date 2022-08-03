@@ -4,7 +4,7 @@
   - SPDX-FileCopyrightText: %{CURRENT_YEAR} %{AUTHOR} <%{EMAIL}>
  -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="org.kde.systemtransfer"
+          package="com.github.cactric.SystemTransfer"
           android:versionName="${versionName}"
           android:versionCode="${versionCode}"
           android:installLocation="auto">
