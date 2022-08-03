@@ -86,7 +86,7 @@ void Service::init_service_browser() {
 }
 
 void Service::servicesChanged() {
-    // something something with kirigami
+    const QList<KDNSSD::RemoteService::Ptr> services = service_browser->services();
 }
 
 Q_SCRIPTABLE void Service::storeInClipboard(const QString &text) {

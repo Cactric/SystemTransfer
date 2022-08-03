@@ -37,25 +37,31 @@ Kirigami.ScrollablePage {
     }
     
     Kirigami.CardsListView {
-        id: foundSenders
+        id: foundReceivers
         Kirigami.PlaceholderMessage {
-            visible: foundSenders.count === 0
+            visible: foundReceivers.count === 0
             anchors.centerIn: parent
             icon.name: "network-wireless-disconnected"
             text: i18n("No receiving computers found on this network (yet)")
             helpfulAction: manualFind
         }
-        model: foundSenderModel
-        delegate: foundSenderDelegate
+        //model: QSortFilterProxyModel {
+            //id: receiversModel
+            //sourceModel: Service.foundReceiversModel
+            //sortOrder: Qt.AscendingOrder
+            //// sortRole: ConversationModel.DateRole
+        //}
+        model: Service.foundReceiversModel
+        delegate: foundReceiverDelegate
         
     }
-    ListModel {
-        id: foundSenderModel
-        //ListElement {name: "System Transfer on example"; hostname: "example"; port: 33599}
-        //ListElement {name: "System Transfer on example 2"; hostname: "example2"; port: 33599}
-    }
+    //ListModel {
+        //id: foundSenderModel
+        ////ListElement {name: "System Transfer on example"; hostname: "example"; port: 33599}
+        ////ListElement {name: "System Transfer on example 2"; hostname: "example2"; port: 33599}
+    //}
     Component {
-        id: foundSenderDelegate
+        id: foundReceiverDelegate
         Kirigami.AbstractCard {
             contentItem: Item {
                 implicitWidth: delegateLayout.implicitWidth

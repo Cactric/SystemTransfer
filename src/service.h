@@ -11,7 +11,7 @@ class Service : public QObject {
     Q_OBJECT
     Q_PROPERTY(QString introductionText READ introductionText WRITE setIntroductionText NOTIFY introductionTextChanged)
     Q_PROPERTY(QString serviceInformationText READ serviceInformationText WRITE setServiceInformationText NOTIFY serviceInformationTextChanged)
-    Q_PROPERTY(QString myIPaddressText READ myIPaddressText);
+    Q_PROPERTY(QString myIPaddressText READ myIPaddressText NOTIFY myIPaddressTextChanged);
 
 public:
     explicit Service(QObject *parent = nullptr);
@@ -27,6 +27,8 @@ public:
     void init_service_browser();
 
     QString myIPaddressText() const;
+    Q_SIGNAL void myIPaddressTextChanged(); // Not used
+    
     Q_SCRIPTABLE static void storeInClipboard(const QString &text);
 
 private:
