@@ -7,6 +7,7 @@
 // and finding them
 
 #include "service.h"
+#include "foundReceiverObject.h"
 #include <kdnssd/publicservice.h>
 #include <kdnssd/servicebrowser.h>
 #include <QNetworkInterface>
@@ -14,6 +15,8 @@
 #include <QGuiApplication>
 #include <QClipboard>
 #include <KLocalizedString>
+
+#include <iostream>
 
 Service::Service(QObject* parent) : QObject(parent) {
 }
@@ -77,17 +80,40 @@ QString Service::myIPaddressText() const {
 }
 
 void Service::init_service_browser() {
+    std::cout << "Making service browser... \n";
     service_browser = new KDNSSD::ServiceBrowser(
         QStringLiteral("_systemtransfer._tcp"),
         true // auto resolve. I guess I want this?
     );
+    std::cout << "Service browser made.\n";
     connect(service_browser, SIGNAL(finished()), this, SLOT(servicesChanged()));
     service_browser->startBrowse();
 }
 
 void Service::servicesChanged() {
     const QList<KDNSSD::RemoteService::Ptr> services = service_browser->services();
+    
+    // Clear the list of found computers
+    m_foundReceiversList.clear();
+    
+    // Add the computers found
+    for (const KDNSSD::RemoteService::Ptr& service : services) {
+        m_foundReceiversList.append(new FoundReceiverObject(service->serviceName(), service->hostName(), service->port()));
+    }
+    
+    std::cout << "Emitting FoundReceiversListChanged.\n";
+    Q_EMIT FoundReceiversListChanged();
 }
+
+QList<QObject *> Service::FoundReceiversList() const {
+    return m_foundReceiversList;
+}
+
+void Service::setFoundReceiversList(QList<QObject *> new_foundReceiversList) {
+    m_foundReceiversList = new_foundReceiversList;
+    Q_EMIT FoundReceiversListChanged();
+}
+
 
 Q_SCRIPTABLE void Service::storeInClipboard(const QString &text) {
     QGuiApplication::clipboard()->setText(text.trimmed());

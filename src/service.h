@@ -12,6 +12,7 @@ class Service : public QObject {
     Q_PROPERTY(QString introductionText READ introductionText WRITE setIntroductionText NOTIFY introductionTextChanged)
     Q_PROPERTY(QString serviceInformationText READ serviceInformationText WRITE setServiceInformationText NOTIFY serviceInformationTextChanged)
     Q_PROPERTY(QString myIPaddressText READ myIPaddressText NOTIFY myIPaddressTextChanged);
+    Q_PROPERTY(QList<QObject *> FoundReceiversList READ FoundReceiversList WRITE setFoundReceiversList NOTIFY FoundReceiversListChanged);
 
 public:
     explicit Service(QObject *parent = nullptr);
@@ -32,6 +33,8 @@ public:
     Q_SCRIPTABLE static void storeInClipboard(const QString &text);
     
     void setFoundReceiversList(QList<QObject *> new_foundReceiversList);
+    QList<QObject *> FoundReceiversList() const;
+    Q_SIGNAL void FoundReceiversListChanged();
     
 private:
     QString m_introductionText = "Hello world!";

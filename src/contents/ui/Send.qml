@@ -45,8 +45,7 @@ Kirigami.ScrollablePage {
             text: i18n("No receiving computers found on this network (yet)")
             helpfulAction: manualFind
         }
-        required FoundReceiversList
-        model: FoundReceiversList
+        model: Service.FoundReceiversList
         delegate: foundReceiverDelegate
         
     }

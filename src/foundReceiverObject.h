@@ -14,6 +14,7 @@ class FoundReceiverObject : public QObject {
     
 public:
     FoundReceiverObject(QObject* parent = nullptr);
+    FoundReceiverObject(const QString &servicename, const QString &hostname, int port, QObject * parent = nullptr);
     
     QString servicename() const;
     void setServiceName(const QString &servicename);

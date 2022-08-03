@@ -54,7 +54,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterSingletonInstance("org.kde.SystemTransfer", 1, 0, "App", &application);
     
     QList<QObject *> foundReceiversList;
-    engine.setInitialProperties({{"FoundReceiversList", QVariant::fromValue(foundReceiversList) }});
+    //engine.setInitialProperties({{"FoundReceiversList", QVariant::fromValue(foundReceiversList) }});
     
     Service service;
     service.setFoundReceiversList(foundReceiversList);

@@ -6,6 +6,7 @@ import QtQuick.Controls 2.15 as Controls
 import QtQuick.Layouts 1.15
 
 import org.kde.kirigami 2.19 as Kirigami
+import org.kde.SystemTransfer 1.0
 
 Kirigami.ApplicationWindow {
     id: root
@@ -23,7 +24,10 @@ Kirigami.ApplicationWindow {
             Kirigami.Action {
                 text: i18n("Send")
                 icon.name: "cloud-upload"
-                onTriggered: pageStack.layers.push('qrc:Send.qml')
+                onTriggered: {
+                    Service.init_service_browser();
+                    pageStack.layers.push('qrc:Send.qml')
+                }
             },
             Kirigami.Action {
                 text: i18n("Receive")

@@ -7,7 +7,7 @@ add_executable(systemtransfer
     app.cpp
     resources.qrc
     service.cpp
-    foundReceiverModel.cpp
+    foundReceiverObject.cpp
 )
 
 find_package(KF5DNSSD NO_MODULE)

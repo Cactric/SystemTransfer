@@ -9,6 +9,14 @@
 FoundReceiverObject::FoundReceiverObject(QObject* parent){
 }
 
+// Alternate constructor
+FoundReceiverObject::FoundReceiverObject(const QString &servicename, const QString &hostname, int port, QObject* parent) {
+    m_servicename = servicename;
+    m_hostname = hostname;
+    m_port = port;
+}
+
+
 // Getters
 QString FoundReceiverObject::servicename() const {
     return m_servicename;
@@ -35,4 +43,5 @@ void FoundReceiverObject::setHostname(const QString& hostname) {
 
 void FoundReceiverObject::setPort(const int port) {
     m_port = port;
+    Q_EMIT portChanged();
 }
