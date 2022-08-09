@@ -32,7 +32,10 @@ Kirigami.ApplicationWindow {
             Kirigami.Action {
                 text: i18n("Receive")
                 icon.name: "cloud-download"
-                onTriggered: pageStack.layers.push('qrc:Receive.qml')
+                onTriggered: {
+                    Service.serviceAnnounce();
+                    pageStack.layers.push('qrc:Receive.qml')
+                }
             },
             Kirigami.Action {
                 text: i18n("About System Transfer")
@@ -87,7 +90,10 @@ Kirigami.ApplicationWindow {
                     Layout.alignment: Qt.AlignHCenter
                     text: i18n("Receive")
                     icon.name: "cloud-download"
-                    onClicked: pageStack.layers.push('qrc:Receive.qml')
+                    onClicked: {
+                        Service.serviceAnnounce();
+                        pageStack.layers.push('qrc:Receive.qml')
+                    }
                 }
             }
         }

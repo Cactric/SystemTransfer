@@ -34,9 +34,6 @@ void Service::setIntroductionText(const QString &introductionText)
 }
 
 QString Service::serviceInformationText(){
-    if(m_announcing == false) {
-        serviceAnnounce();
-    }
     return m_serviceInformationText;
 }
 
@@ -45,7 +42,10 @@ void Service::setServiceInformationText(const QString &serviceInformationText) {
     Q_EMIT serviceInformationTextChanged();
 }
 
-void Service::serviceAnnounce() {
+Q_SCRIPTABLE void Service::serviceAnnounce() {
+    if (m_announcing) {
+        return;
+    }
     KDNSSD::PublicService *public_service = new KDNSSD::PublicService(
         i18n("System transfer on %1", QHostInfo::localHostName()),
         QStringLiteral("_systemtransfer._tcp"),

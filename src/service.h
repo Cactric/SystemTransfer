@@ -24,7 +24,7 @@ public:
     QString serviceInformationText();
     void setServiceInformationText(const QString &serviceInformationText);
     Q_SIGNAL void serviceInformationTextChanged();
-    void serviceAnnounce();
+    Q_SCRIPTABLE void serviceAnnounce();
     
     Q_SCRIPTABLE void init_service_browser();
 
