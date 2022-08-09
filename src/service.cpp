@@ -89,12 +89,6 @@ Q_SCRIPTABLE void Service::init_service_browser() {
 }
 
 void Service::servicesChanged() {
-    if(m_updatingFoundReceiversList) {
-        std::cout << "Updating the receivers list whilst it's being updated!!!!\n";
-        return;
-    }
-    
-    m_updatingFoundReceiversList = true;
     const QList<KDNSSD::RemoteService::Ptr> services = service_browser->services();
     
     // Clear the list of found computers
@@ -102,23 +96,35 @@ void Service::servicesChanged() {
     
     // Add the computers found
     for (const KDNSSD::RemoteService::Ptr& service : services) {
-        m_foundReceiversList.append(new FoundReceiverObject(service->serviceName(), service->hostName(), service->port()));
+        // Check that it's not a duplicate (e.g. on another interface or different IP version)
+        bool duplicate = false;
+        for (const FoundReceiverObject* checkservice : m_foundReceiversList) {
+            if (checkservice->servicename() == service->serviceName()) {
+                if (checkservice->hostname() == service->hostName()) {
+                    if (checkservice->port() == service->port()) {
+                        duplicate = true;
+                        break;
+                    }
+                }
+            }            
+        }
+        if (duplicate == false) {
+            m_foundReceiversList.append(new FoundReceiverObject(service->serviceName(), service->hostName(), service->port()));
+        }
         //std::cout << "Adding service:\nService name: " << service->serviceName() << "\nHostname: " << service->hostName() << "\nPort: " << service->port() << "\n";
         std::cout << "Adding service:\nPort: " << service->port() << "\n";
     }
     
-    m_updatingFoundReceiversList = false;
-    
-    std::cout << "Emitting FoundReceiversListChanged.\n";
-    std::cout << "New length: " << m_foundReceiversList.count() << "\n";
+    //std::cout << "Emitting FoundReceiversListChanged.\n";
+    //std::cout << "New length: " << m_foundReceiversList.count() << "\n";
     Q_EMIT FoundReceiversListChanged();
 }
 
-QList<QObject *> Service::FoundReceiversList() const {
+QList<FoundReceiverObject *> Service::FoundReceiversList() const {
     return m_foundReceiversList;
 }
 
-void Service::setFoundReceiversList(QList<QObject *> new_foundReceiversList) {
+void Service::setFoundReceiversList(QList<FoundReceiverObject *> new_foundReceiversList) {
     m_foundReceiversList = new_foundReceiversList;
     Q_EMIT FoundReceiversListChanged();
 }

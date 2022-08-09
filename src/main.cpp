@@ -53,7 +53,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     App application;
     qmlRegisterSingletonInstance("com.github.cactric.SystemTransfer", 1, 0, "App", &application);
     
-    QList<QObject *> foundReceiversList;
+    QList<FoundReceiverObject *> foundReceiversList;
     //engine.setInitialProperties({{"FoundReceiversList", QVariant::fromValue(foundReceiversList) }});
     
     Service service;

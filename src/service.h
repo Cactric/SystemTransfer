@@ -4,7 +4,8 @@
 */
 
 #pragma once
-#include <QObject>
+//#include <QObject>
+#include "foundReceiverObject.h"
 #include <kdnssd/servicebrowser.h>
 
 class Service : public QObject {
@@ -12,7 +13,7 @@ class Service : public QObject {
     Q_PROPERTY(QString introductionText READ introductionText WRITE setIntroductionText NOTIFY introductionTextChanged)
     Q_PROPERTY(QString serviceInformationText READ serviceInformationText WRITE setServiceInformationText NOTIFY serviceInformationTextChanged)
     Q_PROPERTY(QString myIPaddressText READ myIPaddressText NOTIFY myIPaddressTextChanged)
-    Q_PROPERTY(QList<QObject *> FoundReceiversList READ FoundReceiversList WRITE setFoundReceiversList NOTIFY FoundReceiversListChanged)
+    Q_PROPERTY(QList<FoundReceiverObject *> FoundReceiversList READ FoundReceiversList WRITE setFoundReceiversList NOTIFY FoundReceiversListChanged)
 
 public:
     explicit Service(QObject *parent = nullptr);
@@ -32,8 +33,8 @@ public:
     
     Q_SCRIPTABLE static void storeInClipboard(const QString &text);
     
-    void setFoundReceiversList(QList<QObject *> new_foundReceiversList);
-    QList<QObject *> FoundReceiversList() const;
+    void setFoundReceiversList(QList<FoundReceiverObject *> new_foundReceiversList);
+    QList<FoundReceiverObject *> FoundReceiversList() const;
     Q_SIGNAL void FoundReceiversListChanged();
     
 private:
@@ -42,8 +43,7 @@ private:
     bool m_announcing = false;
     KDNSSD::ServiceBrowser *service_browser;
     QHash<QString, QString> m_protocols;
-    QList<QObject *> m_foundReceiversList;
-    bool m_updatingFoundReceiversList = false;
+    QList<FoundReceiverObject *> m_foundReceiversList;
 
 private Q_SLOTS:
     void servicesChanged();
