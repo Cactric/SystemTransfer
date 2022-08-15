@@ -86,9 +86,4 @@ Kirigami.ScrollablePage {
         }
         
     }
-    //ListModel {
-        //id: foundReceiverModel
-        //ListElement {servicename: "System Transfer on example"; hostname: "example"; port: 33599}
-        //ListElement {servicename: "System Transfer on example 2"; hostname: "example2"; port: 33599}
-    //}
 }
