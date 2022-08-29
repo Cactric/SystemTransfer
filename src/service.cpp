@@ -16,8 +16,6 @@
 #include <QClipboard>
 #include <KLocalizedString>
 
-#include <iostream>
-
 Service::Service(QObject* parent) : QObject(parent) {
 }
 
@@ -111,12 +109,7 @@ void Service::servicesChanged() {
         if (duplicate == false) {
             m_foundReceiversList.append(new FoundReceiverObject(service->serviceName(), service->hostName(), service->port()));
         }
-        //std::cout << "Adding service:\nService name: " << service->serviceName() << "\nHostname: " << service->hostName() << "\nPort: " << service->port() << "\n";
-        std::cout << "Adding service:\nPort: " << service->port() << "\n";
-    }
-    
-    //std::cout << "Emitting FoundReceiversListChanged.\n";
-    //std::cout << "New length: " << m_foundReceiversList.count() << "\n";
+    }    
     Q_EMIT FoundReceiversListChanged();
 }
 

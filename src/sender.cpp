@@ -4,7 +4,6 @@
 */
 #include "sender.h"
 #include <QObject>
-#include <iostream>
 
 Sender::Sender(QObject* parent) : QObject(parent) {
 }
@@ -56,7 +55,6 @@ QProcess* Sender::rsyncProcess() const {
 }
 
 void Sender::startRsyncProcess() {
-    std::cout << "Starting rsync...\n";
     m_rsync_process = new QProcess();
     connect(m_rsync_process, SIGNAL(readyReadStandardError()), this, SLOT(moreRsyncOutput()));
     m_rsync_process->start(m_rsync_path, m_rsync_args);
