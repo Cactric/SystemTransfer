@@ -16,6 +16,7 @@ class Sender : public QObject {
     Q_PROPERTY(QString rsyncPath READ rsyncPath WRITE setRsyncPath NOTIFY rsyncPathChanged)
     Q_PROPERTY(QStringList rsyncArgs READ rsyncArgs WRITE setRsyncArgs NOTIFY rsyncArgsChanged)
     Q_PROPERTY(QProcess rsyncProcess READ rsyncProcess)
+    Q_PROPERTY(QString rsyncOutput READ rsyncOutput NOTIFY rsyncOutputChanged)
 
 public:
     // Constructors
@@ -45,6 +46,9 @@ public:
     QProcess* rsyncProcess() const;
     Q_SCRIPTABLE void startRsyncProcess();
     Q_SCRIPTABLE void cancelRsyncProcess();
+    
+    QString rsyncOutput() const;
+    Q_SIGNAL void rsyncOutputChanged();
 
 private:
     QString m_hostname = "";
@@ -52,4 +56,8 @@ private:
     QString m_rsync_path = "rsync";
     QStringList m_rsync_args;
     QProcess *m_rsync_process;
+    QString m_rsync_output = "(empty)";
+    
+private Q_SLOTS:
+    void moreRsyncOutput();
 };
