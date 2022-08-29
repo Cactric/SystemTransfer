@@ -31,9 +31,10 @@ Kirigami.Page {
         
         Controls.ScrollView {
             focusPolicy: Qt.StrongFocus
-            //implicitWidth: Kirigami.Units.gridUnit * 16
+            implicitWidth: Kirigami.Units.gridUnit * 48
             implicitHeight: Kirigami.Units.gridUnit * 32
             Controls.TextArea {
+                font.family: "Monospace"
                 height: parent.height
                 readOnly: true
                 text: Sender.rsyncOutput

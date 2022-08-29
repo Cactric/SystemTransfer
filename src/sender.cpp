@@ -70,4 +70,5 @@ QString Sender::rsyncOutput() const {
 
 void Sender::moreRsyncOutput() {
     m_rsync_output = m_rsync_process->readAllStandardError();
+    Q_EMIT rsyncOutputChanged();
 }
