@@ -60,3 +60,7 @@ void Sender::startRsyncProcess() {
     m_rsync_process = new QProcess();
     m_rsync_process->start(m_rsync_path, m_rsync_args);
 }
+
+void Sender::cancelRsyncProcess() {
+    m_rsync_process->terminate();
+}

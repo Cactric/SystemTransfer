@@ -44,6 +44,7 @@ public:
     
     QProcess* rsyncProcess() const;
     Q_SCRIPTABLE void startRsyncProcess();
+    Q_SCRIPTABLE void cancelRsyncProcess();
 
 private:
     QString m_hostname = "";

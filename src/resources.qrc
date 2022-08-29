@@ -8,5 +8,6 @@
         <file alias="About.qml">contents/ui/About.qml</file>
         <file alias="Send.qml">contents/ui/Send.qml</file>
         <file alias="Receive.qml">contents/ui/Receive.qml</file>
+        <file alias="Sending.qml">contents/ui/Sending.qml</file>
     </qresource>
 </RCC>

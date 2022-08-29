@@ -83,6 +83,7 @@ Kirigami.ScrollablePage {
                             Sender.setHostname(modelData.hostname);
                             Sender.setPort(modelData.port);
                             Sender.startRsyncProcess();
+                            pageStack.layers.push('qrc:Sending.qml');
                         }
                     }
                 }
