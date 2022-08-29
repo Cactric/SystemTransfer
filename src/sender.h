@@ -19,22 +19,22 @@ class Sender : public QObject {
 
 public:
     // Constructors
-    Q_SCRIPTABLE explicit Sender(QString hostname, int port, QObject *parent = nullptr);
+    //Q_SCRIPTABLE explicit Sender(QString hostname, int port, QObject *parent = nullptr);
     explicit Sender(QObject *parent = nullptr);
     
     // Functions for hostname Q_PROPERTY
     QString hostname() const;
-    void setHostname(const QString &hostname);
+    Q_SCRIPTABLE void setHostname(const QString &hostname);
     Q_SIGNAL void hostnameChanged();
     
     // Functions for port Q_PROPERTY
     int port() const;
-    void setPort(const int port);
+    Q_SCRIPTABLE void setPort(const int port);
     Q_SIGNAL void portChanged();
 
     // Rsync sender stuff
     QString rsyncPath() const;
-    void setRsyncPath(QString &rsyncPath);
+    Q_SCRIPTABLE void setRsyncPath(QString &rsyncPath);
     Q_SIGNAL void rsyncPathChanged();
     
     QStringList rsyncArgs() const;
@@ -43,7 +43,7 @@ public:
     Q_SIGNAL void rsyncArgsChanged();
     
     QProcess* rsyncProcess() const;
-    void startRsyncProcess();
+    Q_SCRIPTABLE void startRsyncProcess();
 
 private:
     QString m_hostname = "";

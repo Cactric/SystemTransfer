@@ -3,14 +3,10 @@
     SPDX-FileCopyrightText: 2022 Cactric
 */
 #include "sender.h"
+#include <QObject>
+#include <iostream>
 
-// Constructors
-Sender::Sender(QString hostname, int port, QObject *parent) : QObject(parent) {
-    m_hostname = hostname;
-    m_port = port;
-}
-
-Sender::Sender(QObject *parent) : QObject(parent) {
+Sender::Sender(QObject* parent) : QObject(parent) {
 }
 
 QString Sender::hostname() const {
@@ -60,6 +56,7 @@ QProcess* Sender::rsyncProcess() const {
 }
 
 void Sender::startRsyncProcess() {
+    std::cout << "Starting rsync...\n";
     m_rsync_process = new QProcess();
     m_rsync_process->start(m_rsync_path, m_rsync_args);
 }

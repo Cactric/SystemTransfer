@@ -79,7 +79,11 @@ Kirigami.ScrollablePage {
                         text: i18n("Send")
                         Layout.alignment: Qt.AlignRight
                         icon.name: "cloud-upload"
-                        //onClicked
+                        onClicked: {
+                            Sender.setHostname(modelData.hostname);
+                            Sender.setPort(modelData.port);
+                            Sender.startRsyncProcess();
+                        }
                     }
                 }
             }
