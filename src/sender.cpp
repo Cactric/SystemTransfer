@@ -4,6 +4,7 @@
 */
 #include "sender.h"
 #include <QObject>
+//#include <QDebug>
 
 Sender::Sender(QObject* parent) : QObject(parent) {
 }
@@ -35,6 +36,23 @@ void Sender::setRsyncPath(QString &rsyncPath) {
     Q_EMIT rsyncPathChanged();
 }
 
+QString Sender::source() {
+    return m_source;
+}
+
+void Sender::setSource(QString &newSource) {
+    m_source = newSource;
+    Q_EMIT sourceChanged();
+}
+
+QString Sender::destination() {
+    return m_destination;
+}
+
+void Sender::setDestination(QString &newDestination) {
+    m_destination = newDestination;
+    Q_EMIT destinationChanged();
+}
 
 QStringList Sender::rsyncArgs() const {
     return m_rsync_args;
@@ -57,6 +75,14 @@ QProcess* Sender::rsyncProcess() const {
 void Sender::startRsyncProcess() {
     m_rsync_process = new QProcess();
     connect(m_rsync_process, SIGNAL(readyReadStandardError()), this, SLOT(moreRsyncOutput()));
+    
+    // Populate some default arguments (like the source and destination)
+    QString destinationUrl = "rsync://" + m_hostname + ":" + QString::number(m_port) + "/" + m_destination + "/";
+    
+    m_rsync_args << m_source << destinationUrl;
+    
+    //qDebug() << "About to start rsync process:" << m_rsync_path << m_rsync_args;
+    
     m_rsync_process->start(m_rsync_path, m_rsync_args);
 }
 

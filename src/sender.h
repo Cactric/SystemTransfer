@@ -14,6 +14,8 @@ class Sender : public QObject {
     Q_PROPERTY(int port READ port WRITE setPort NOTIFY portChanged)
     
     Q_PROPERTY(QString rsyncPath READ rsyncPath WRITE setRsyncPath NOTIFY rsyncPathChanged)
+    Q_PROPERTY(QString source READ source WRITE setSource NOTIFY sourceChanged)
+    Q_PROPERTY(QString destination READ destination WRITE setDestination NOTIFY destinationChanged) // Destination is the folder on the client (not including hostname)
     Q_PROPERTY(QStringList rsyncArgs READ rsyncArgs WRITE setRsyncArgs NOTIFY rsyncArgsChanged)
     Q_PROPERTY(QProcess rsyncProcess READ rsyncProcess)
     Q_PROPERTY(QString rsyncOutput READ rsyncOutput NOTIFY rsyncOutputChanged)
@@ -38,6 +40,14 @@ public:
     Q_SCRIPTABLE void setRsyncPath(QString &rsyncPath);
     Q_SIGNAL void rsyncPathChanged();
     
+    QString source();
+    void setSource(QString &newSource);
+    Q_SIGNAL void sourceChanged();
+    
+    QString destination();
+    void setDestination(QString &newDestination);
+    Q_SIGNAL void destinationChanged();
+    
     QStringList rsyncArgs() const;
     void setRsyncArgs(QStringList &newRsyncArgs);
     void appendRsyncArg(QString &newRsyncArg);
@@ -57,6 +67,8 @@ private:
     QStringList m_rsync_args;
     QProcess *m_rsync_process;
     QString m_rsync_output = "(empty)";
+    QString m_source = "";
+    QString m_destination = "home"; //default share name for the receiver
     
 private Q_SLOTS:
     void moreRsyncOutput();

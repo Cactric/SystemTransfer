@@ -62,6 +62,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterSingletonInstance("com.github.cactric.SystemTransfer", 1, 0, "Service", &service);
     
     Sender sender;
+    QString defaultSource = qEnvironmentVariable("HOME");
+    sender.setSource(defaultSource);
     qmlRegisterSingletonInstance("com.github.cactric.SystemTransfer", 1, 0, "Sender", &sender);
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
