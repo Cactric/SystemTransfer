@@ -19,6 +19,7 @@ class Sender : public QObject {
     Q_PROPERTY(QStringList rsyncArgs READ rsyncArgs WRITE setRsyncArgs NOTIFY rsyncArgsChanged)
     Q_PROPERTY(QProcess rsyncProcess READ rsyncProcess)
     Q_PROPERTY(QString rsyncOutput READ rsyncOutput NOTIFY rsyncOutputChanged)
+    Q_PROPERTY(QString status READ status WRITE setStatus NOTIFY statusChanged)
 
 public:
     // Constructors
@@ -59,6 +60,10 @@ public:
     
     QString rsyncOutput() const;
     Q_SIGNAL void rsyncOutputChanged();
+    
+    QString status() const;
+    void setStatus(const QString &newStatus);
+    Q_SIGNAL void statusChanged();
 
 private:
     QString m_hostname = "";
@@ -69,6 +74,7 @@ private:
     QString m_rsync_output = "(empty)";
     QString m_source = "";
     QString m_destination = "home"; //default share name for the receiver
+    QString m_status = "Transfer to %1 hasn't started";
     
 private Q_SLOTS:
     void moreRsyncOutput();

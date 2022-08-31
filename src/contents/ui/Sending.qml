@@ -45,7 +45,8 @@ Kirigami.Page {
     ColumnLayout {
         Controls.Label {
             Layout.alignment: Qt.AlignLeft
-            text: i18n("Sending to %1...", Sender.hostname)
+            // Sender.status should be something like “Sending to %1...”
+            text: i18n(Sender.status, Sender.hostname)
         }
         Controls.ProgressBar {
             from: 0

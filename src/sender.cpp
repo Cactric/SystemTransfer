@@ -75,15 +75,39 @@ QProcess* Sender::rsyncProcess() const {
 void Sender::startRsyncProcess() {
     m_rsync_process = new QProcess();
     connect(m_rsync_process, SIGNAL(readyReadStandardError()), this, SLOT(moreRsyncOutput()));
+    connect(m_rsync_process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+    [=](int exitCode, QProcess::ExitStatus exitStatus){
+        QString exitmsg;
+        if(exitStatus == QProcess::CrashExit) {
+            exitmsg = "Sending to %1 was unsuccessful because the process crashed :/";
+        } else {
+            // exitCode is only valid if there was a normal exit, according to Qt's docs
+            if (exitCode == 0){
+                // Good exit
+                exitmsg = "Transfer to %1 appears to have been completed successfully.";
+            } else {
+                // Bad exit
+                exitmsg = "Transfer to %1 appears to have stopped unsuccessfully (exit code " + QString::number(exitCode) + ".) Check the transfer log for more details"; 
+            }
+        }
+        setStatus(exitmsg);
+    });
     
     // Populate some default arguments (like the source and destination)
     QString destinationUrl = "rsync://" + m_hostname + ":" + QString::number(m_port) + "/" + m_destination + "/";
+    
+    // Add some default arguments - a way to change these will come later
+    m_rsync_args << "--archive";
+    m_rsync_args << "--verbose";
+    m_rsync_args << "--progress";
+    m_rsync_args << "--partial";
     
     m_rsync_args << m_source << destinationUrl;
     
     //qDebug() << "About to start rsync process:" << m_rsync_path << m_rsync_args;
     
     m_rsync_process->start(m_rsync_path, m_rsync_args);
+    setStatus("Sending to %1...");
 }
 
 void Sender::cancelRsyncProcess() {
@@ -97,4 +121,13 @@ QString Sender::rsyncOutput() const {
 void Sender::moreRsyncOutput() {
     m_rsync_output = m_rsync_process->readAllStandardError();
     Q_EMIT rsyncOutputChanged();
+}
+
+QString Sender::status() const {
+    return m_status;
+}
+
+void Sender::setStatus(const QString &newStatus) {
+    m_status = newStatus;
+    Q_EMIT statusChanged();
 }
