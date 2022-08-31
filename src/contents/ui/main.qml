@@ -21,7 +21,7 @@ Kirigami.ApplicationWindow {
         titleIcon: "applications-graphics"
         isMenu: !root.isMobile
         actions: [
-            Kirigami.Action {
+            /*Kirigami.Action {
                 text: i18n("Send")
                 icon.name: "cloud-upload"
                 onTriggered: {
@@ -36,7 +36,7 @@ Kirigami.ApplicationWindow {
                     Service.serviceAnnounce();
                     pageStack.layers.push('qrc:Receive.qml')
                 }
-            },
+            },*/
             Kirigami.Action {
                 text: i18n("About System Transfer")
                 icon.name: "help-about"
@@ -92,6 +92,7 @@ Kirigami.ApplicationWindow {
                     icon.name: "cloud-download"
                     onClicked: {
                         Service.serviceAnnounce();
+                        Receiver.startRsyncProcess();
                         pageStack.layers.push('qrc:Receive.qml')
                     }
                 }

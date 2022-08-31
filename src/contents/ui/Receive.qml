@@ -10,6 +10,11 @@ import com.github.cactric.SystemTransfer 1.0
 Kirigami.Page {
     id: receive
     title: i18n("Receive")
+    
+    onBackRequested: {
+        Receiver.cancelRsyncProcess();
+        Service.stopAnnouncingService();
+    }
 
     ColumnLayout {
         width: page.width
@@ -39,6 +44,17 @@ Kirigami.Page {
         Controls.Label {
             text: Service.serviceInformationText
         }
+        
+        Controls.Label {
+            text: Receiver.status
+        }
+        
+        Controls.Button {
+            text: i18n("Show log file")
+            Layout.alignment: Qt.AlignLeft
+            icon.name: "viewlog"
+            onClicked: Receiver.openLogFile()
+        }
     }
     
     Component {
@@ -59,4 +75,23 @@ Kirigami.Page {
             ]
         }
     }
+
+    Kirigami.Dialog {
+        id: "logDialogue"
+        title: "Transfer log"
+        standardButtons: Kirigami.Dialog.NoButton
+        
+        Controls.ScrollView {
+            focusPolicy: Qt.StrongFocus
+            implicitWidth: Kirigami.Units.gridUnit * 48
+            implicitHeight: Kirigami.Units.gridUnit * 32
+            Controls.TextArea {
+                font.family: "Monospace"
+                height: parent.height
+                readOnly: true
+                text: Receiver.rsyncOutput
+            }
+        }
+    }
+    
 }

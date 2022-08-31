@@ -7,6 +7,7 @@
 //#include <QObject>
 #include "foundReceiverObject.h"
 #include <kdnssd/servicebrowser.h>
+#include <kdnssd/publicservice.h>
 
 class Service : public QObject {
     Q_OBJECT
@@ -25,6 +26,7 @@ public:
     void setServiceInformationText(const QString &serviceInformationText);
     Q_SIGNAL void serviceInformationTextChanged();
     Q_SCRIPTABLE void serviceAnnounce();
+    Q_SCRIPTABLE void stopAnnouncingService();
     
     Q_SCRIPTABLE void init_service_browser();
 
@@ -44,6 +46,7 @@ private:
     KDNSSD::ServiceBrowser *service_browser;
     QHash<QString, QString> m_protocols;
     QList<FoundReceiverObject *> m_foundReceiversList;
+    KDNSSD::PublicService m_public_service;
 
 private Q_SLOTS:
     void servicesChanged();

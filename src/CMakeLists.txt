@@ -9,6 +9,7 @@ add_executable(systemtransfer
     service.cpp
     foundReceiverObject.cpp
     sender.cpp
+    receiver.cpp
 )
 
 find_package(KF5DNSSD NO_MODULE)

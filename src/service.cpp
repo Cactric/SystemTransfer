@@ -44,18 +44,22 @@ Q_SCRIPTABLE void Service::serviceAnnounce() {
     if (m_announcing) {
         return;
     }
-    KDNSSD::PublicService *public_service = new KDNSSD::PublicService(
+    KDNSSD::PublicService *m_public_service = new KDNSSD::PublicService(
         i18n("System transfer on %1", QHostInfo::localHostName()),
         QStringLiteral("_systemtransfer._tcp"),
         33599 // port number. Random hardcoded number for now
     );
     
-    public_service->publishAsync();
+    m_public_service->publishAsync();
 
     m_announcing = true;
     m_serviceInformationText = "Announcing to other computers on the local network...";
     Q_EMIT serviceInformationTextChanged();
 
+}
+
+Q_SCRIPTABLE void Service::stopAnnouncingService() {
+    m_public_service.stop();
 }
 
 // This function gets the (local) IP address of the computer, e.g. 192.168.0.37

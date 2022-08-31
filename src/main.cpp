@@ -19,6 +19,7 @@
 #include "systemtransferconfig.h"
 #include "service.h"
 #include "sender.h"
+#include "receiver.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -65,6 +66,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QString defaultSource = qEnvironmentVariable("HOME");
     sender.setSource(defaultSource);
     qmlRegisterSingletonInstance("com.github.cactric.SystemTransfer", 1, 0, "Sender", &sender);
+
+    Receiver receiver;
+    qmlRegisterSingletonInstance("com.github.cactric.SystemTransfer", 1, 0, "Receiver", &receiver);
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
